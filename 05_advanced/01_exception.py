@@ -72,7 +72,7 @@ for amount in [5000,50000,-1000]:
     try:
         acc.withdraw(amount)
     except InvalidAmountError as e:  # 위에 InvalidAmountError(ValueError): 상속을 하여 ValueError를 위에 두면 자식오류까지 가져감
-        print(f"[금액 오류] {e}")    # 자식을 위에 부모를 아래에
+        print(f"[출금 오류] {e}")    # 자식을 위에 부모를 아래에
     except NoBalanceError as e:
         print(f"[잔액 부족] {e}")
     else:
