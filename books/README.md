@@ -31,7 +31,7 @@ books/
   main.py      # 메뉴 루프 진입점
 ```
 
-- `Book` : ISBN, 제목, 저자, 대출여부. 대출 상태는 `borrow()` / `return_book()` 으로만 변경 (`_is_borrowed` + 읽기 전용 `@property`)
+- `Book` : ISBN, 제목, 저자, 대출여부. 대출 상태는 `borrow()` / `return_book()` 으로만 변경 (`__is_borrowed` 네임 맹글링 + 읽기 전용 `@property is_borrowed`)
 - `PaperBook(Book)` : 보관 위치 추가
 - `EBook(Book)` : 파일 포맷, 파일 용량(MB) 추가
 
@@ -69,3 +69,7 @@ books/
 **테스트**
 - 등록 → 중복 등록(거부) → 대출 → 재대출(거부) → 대출가능 조회 → 저자 목록 → 반납 → 재반납(거부) → 없는 ISBN 삭제(거부) → 삭제
 - 테스트 중 직접 발견한 버그: y/n 외 값 통과, 빈칸 통과, 삭제 시 공백 미처리 → 수정
+
+## 피드백 반영
+
+- 대출 상태 필드 `_is_borrowed` → `__is_borrowed` 로 변경 (캡슐화 의도를 명확히 하라는 피드백). `_` 하나는 "건드리지 말자" 는 약속이고, `__` 두 개는 이름이 `_Book__is_borrowed` 로 바뀌어 바깥에서 직접 접근이 막힘
