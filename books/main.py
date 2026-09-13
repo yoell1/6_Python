@@ -1,31 +1,12 @@
-from models import (
-    EBook,
-    PaperBook,
-    DuplicateIsbnError,
-    BookNotFoundError,
-    AlreadyBorrowedError,
-    NotBorrowedError,
-)
+from models import EBook, PaperBook, DuplicateIsbnError, BookNotFoundError, AlreadyBorrowedError, NotBorrowedError
 from library import Library
-
-MENU = """
-1. 등록  2. 전체조회  3. 대출가능 조회  4. 저자 목록
-5. 대출  6. 반납  7. 삭제  0. 종료"""
-
-
-def print_books(books):
-    if not books:
-        print("조회된 도서가 없습니다")
-        return
-    for book in books:
-        print(book)
 
 
 def main():
     library = Library()
 
     while True:
-        print(MENU)
+        print("\n1. 등록  2. 전체조회  3. 대출가능 조회  4. 저자 목록  5. 대출  6. 반납  7. 삭제  0. 종료")
         choice = input("선택 : ").strip()
 
         if choice == "0":
@@ -64,39 +45,49 @@ def main():
                 print(f"[등록 실패] {e}")
 
         elif choice == "2":
-            print_books(library.get_all())
+            all_books = library.get_all()
+            if all_books:
+                for book in all_books:
+                    print(book)
+            else:
+                print("조회된 도서가 없습니다")
 
         elif choice == "3":
-            print_books(library.get_available())
+            available_books = library.get_available()
+            if available_books:
+                for book in available_books:
+                    print(book)
+            else:
+                print("조회된 도서가 없습니다")
 
         elif choice == "4":
             authors = library.get_authors()
-            if not authors:
-                print("등록된 저자가 없습니다")
-            else:
+            if authors:
                 print(", ".join(authors))
+            else:
+                print("등록된 저자가 없습니다")  
 
         elif choice == "5":
             isbn = input("대출할 ISBN : ").strip()
             try:
-                book = library.borrow_book(isbn)
-                print(f"대출 완료: {book.title}")
+                library.borrow_book(isbn)
+                print("대출 완료")
             except (BookNotFoundError, AlreadyBorrowedError) as e:
                 print(f"[대출 실패] {e}")
 
         elif choice == "6":
             isbn = input("반납할 ISBN : ").strip()
             try:
-                book = library.return_book(isbn)
-                print(f"반납 완료: {book.title}")
+                library.return_book(isbn)
+                print("반납 완료")
             except (BookNotFoundError, NotBorrowedError) as e:
                 print(f"[반납 실패] {e}")
 
         elif choice == "7":
             isbn = input("삭제할 ISBN : ").strip()
             try:
-                book = library.remove_book(isbn)
-                print(f"삭제 완료: {book.title}")
+                library.remove_book(isbn)
+                print("삭제 완료")
             except BookNotFoundError as e:
                 print(f"[삭제 실패] {e}")
 

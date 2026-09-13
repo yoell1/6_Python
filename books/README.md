@@ -52,15 +52,19 @@ books/
 
 ## 역할 분담
 
-**직접 작성**
-- 초기 버전 전체: `Book` / `EBook` / `PaperBook` 클래스, 예외 클래스 2개(`DuplicateIsbnError`, `BookNotFoundError`), 등록·전체조회·삭제 기능, 메뉴 루프
-- 한 파일(`books.py`)로 만든 뒤 `models.py` / `book_manager.py` / `main.py` 세 파일로 분리
-- 테스트 중 발견한 버그 수정: 전자책 여부에 `y`/`n` 외 값이 통과되던 문제, 빈칸 입력이 통과되던 문제, 삭제 시 ISBN 공백 미처리
+**직접 작성 (전체 코드)**
+- `Book` / `EBook` / `PaperBook` 클래스, `borrow()` / `return_book()`, 읽기 전용 `@property is_borrowed`
+- 예외 클래스 4개 (`DuplicateIsbnError`, `BookNotFoundError`, `AlreadyBorrowedError`, `NotBorrowedError`)
+- `Library` — `_find()` 공통화, `get_available()` / `get_authors()` 컴프리헨션, 대출·반납·삭제
+- `main.py` 메뉴 0~7 전체, 입력 검증 (빈칸·y/n·숫자)
+- 한 파일로 만든 뒤 `models.py` / `library.py` / `main.py` 로 분리
 
-**AI(Claude) 작성 — 요구사항 확정 후 추가된 부분**
-- 대출여부 필드와 `borrow()` / `return_book()` 메소드, `AlreadyBorrowedError` / `NotBorrowedError`
-- `Library._find()` 로 ISBN 검색 공통화, `get_available()` / `get_authors()` (컴프리헨션)
-- `main.py` 의 대출·반납·대출가능 조회·저자 목록 메뉴
-- 파일명 `book_manager.py` → `library.py` 변경은 교안 구조에 맞춰 직접 수행
+**AI(Claude) 의 역할**
+- 요구사항을 TODO 목록으로 정리해 작성 순서 안내
+- 개념 설명 (`_find` 로 공통 부분 빼기, 컴프리헨션, `except (A, B)`)
+- 작성한 코드 검토 — 들여쓰기·오타·빠진 부분 지적, 실행 테스트
+- 1차 버전에서 대출/반납 부분을 AI 가 작성했으나, 이후 그 부분을 지우고 요구사항만 보고 직접 다시 작성함 (커밋 이력 참고)
 
-AI 가 작성한 부분은 직접 실행하며 등록 → 대출 → 재대출(거부) → 반납 → 삭제 순서로 테스트했습니다.
+**테스트**
+- 등록 → 중복 등록(거부) → 대출 → 재대출(거부) → 대출가능 조회 → 저자 목록 → 반납 → 재반납(거부) → 없는 ISBN 삭제(거부) → 삭제
+- 테스트 중 직접 발견한 버그: y/n 외 값 통과, 빈칸 통과, 삭제 시 공백 미처리 → 수정
