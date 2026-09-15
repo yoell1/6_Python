@@ -9,6 +9,8 @@ import requests
 # ModuleNotFoundError: No module named 'requests'
 # --> 해당 모듈 설치 필요! pip install requests
 from bs4 import BeautifulSoup
+import re
+from urllib.parse import urljoin
 
 from config import BASE, TIMEOUT, HEADERS
 
@@ -53,3 +55,50 @@ print(f"name_link.get('href'): {name_link.get('href')}")
 print(f"name_link.get('href'): {name_link.get('href', '없음')}") # 기본값 설정 가능
 
 # 첫번째 행의 전체 데이터를 추출
+for sel in ["td.col-code","td.col-name a", "td.col-sector",
+ "td.col-price","td.col-change","td.col-volume","td.col-market span"]:
+    tag = first.select_one(sel) 
+    value = tag.get_text(strip=True) if tag else "없음"
+    print(f"{sel:<20} {value}")
+
+
+
+
+
+"""
+for td in first.select("td"):
+    print(td.get("class"), "→", td.get_text(strip=True))
+
+item = {
+    "code": first.select_one("td.col-code").get_text(strip=True),
+    "name": first.select_one("td.col-name").get_text(strip=True),
+    "sector": first.select_one("td.col-sector").get_text(strip=True),
+    "price": int(re.sub(r"[^\d]","",first.select_one("td.col-price").get_text(strip=True))),
+    "change": first.select_one("td.col-change").get_text(strip=True),
+    "volume": int(re.sub(r"[^\d]","",first.select_one("td.col-volume").get_text(strip=True))),
+    "market": first.select_one("td.col-market").get_text(strip=True),
+    "url": first.select_one("td.col-name a").get("href"),
+}
+
+print(item)
+
+# 전체 행 데이터를 추출
+stocks = []
+
+for row in rows_select:
+    item ={
+        "code": row.select_one("td.col-code").get_text(strip=True),
+        "name": row.select_one("td.col-name").get_text(strip=True),
+        "sector": row.select_one("td.col-sector").get_text(strip=True),
+        "price": int(re.sub(r"[^\d]","",row.select_one("td.col-price").get_text(strip=True))),
+        "change": row.select_one("td.col-change").get_text(strip=True),
+        "volume": int(re.sub(r"[^\d]","",row.select_one("td.col-volume").get_text(strip=True))),
+        "market":row.select_one("td.col-market").get_text(strip=True),
+        "url": urljoin(BASE, row.select_one("td.col-name a").get("href")),
+    }
+    stocks.append(item)
+
+print(f"수집 건수 : {len(stocks)}")
+print(stocks[0])
+print(stocks[-1])    
+"""
