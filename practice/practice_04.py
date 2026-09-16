@@ -1,59 +1,67 @@
 """
-    실습용 사이트에서
-        종목 목록 페이지(CSR)의 전체 종목을 페이지를 넘겨가며 전부 수집
-        - 자바스크립트로 데이터를 그리는 동적 페이지이므로 Playwright 사용
-        - 한 페이지에 20개씩, 총 6페이지 (120종목)
-
-    - 요청 주소: https://kh-lab.rockua.ai.kr/csr/stocks
+    Numpy 연습문제
 """
-import json, csv
-from parsers import parse_stocks
-from config import BASE
 
-from playwright.sync_api import sync_playwright
+# =========== 이곳에 필요한 모듈 import 한 후 실행 ===========
+
+"""
+    1. 다음 리스트 [1, 2, 3, 4, 5]를 ndarray로 변환하고, 배열의 차원(ndim)과 형태(shape)을 출력하시오.
+"""
 
 
+"""
+    2. np.arange()를 이용해 0부터 20까지의 짝수로 이루어진 배열을 생성하시오.
+"""
 
-with sync_playwright() as p:
-    browser = p.chromium.launch(headless=True)
 
-    context = browser.new_context(locale="ko-KR",
-                                  viewport={"width":1280,"height":720})
+"""
+    3. 다음 제시된 배열에서, 3 이상인 값만 추출하는 불리언 인덱싱 코드를 작성하시오.
+"""
 
-    page = context.new_page()
 
-    all_stocks = []
+"""
+    4. 다음 제시된 리스트를 배열로 변환한 후, 두 번째 행만 슬라이싱하여 출력하시오.
+"""
+list4 = [[10, 20, 30], [40, 50, 60], [70, 80, 90]]
 
-    page.goto(f"{BASE}/csr/stocks")
-    page.wait_for_selector("tr.stock-row")
 
-    for i in range(6):
-        html = page.content()
-        stocks = parse_stocks(html)
-        print(f"{i+1} 페이지 개수 : {len(stocks)}")
-        all_stocks.extend(stocks)
+"""
+    5. 다음 제시된 리스트를 배열로 변환한 후, 모든 홀수에만 10을 더하는 벡터화 연산을 수행하시오.
+"""
+list5 = [1, 2, 3, 4, 5]
 
-        if i < 5:
-            page.click("button:has-text('Next')")
-            page.wait_for_selector("tr.stock-row", state="detached")
-            page.wait_for_selector("tr.stock-row")
+"""
+    6. 다음 제시된 실수 리스트를 배열로 변환한 후, 반올림한 정수형 배열로 변환하시오.
+        주의 : astype 만 쓰면 소수점 아래가 버려져서 값이 새어나간다.
 
-    print(f"전체 : {len(all_stocks)}개")
+        [출력 예시]
+            np.array([52000.9, -3.7]) -> [52001, -4]
 
-    codes = {s['code'] for s in all_stocks}
-    print(f"고유 종목코드 : {len(codes)}개")
+        [힌트] 반올림을 먼저 하고 타입을 바꾼다. 순서가 중요하다.
+"""
+list6 = [52000.9, 51999.2, -3.7, 52000.5]
 
-def save_json(data, path):
-    with open(path,"w",encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=3)
+# =========== 아래 문제들은 실습용 데이터(prices.csv, load_utils.py)를 활용하여 풀이해보세요. =========== 
+"""
+    7. 첫 종목의 종가 데이터를 기준으로 최저가, 최고가와 그에 해당하는 날짜를 각각 출력하시오. 
+       (실습용 데이터의 prices 와 dates 는 길이와 순서가 같다.)
 
-save_json(stocks,"it1_stocks.json") 
+        [출력 예시]
+            (25899, numpy.datetime64('2023-10-16'), 8885, numpy.datetime64('2026-05-21'))
 
-def save_csv(data, path):
-    with open(path, "w", newline="", encoding="utf-8")as f:
-        writer =csv.DictWriter(f, fieldnames =data[0].keys())
+        [힌트] max 는 '값', argmax 는 '그 값이 있는 위치' 다.
+              위치를 얻으면 길이가 같은 다른 배열에서 같은 자리를 꺼낼 수 있다.
+"""
 
-        writer.writeheader()
-        writer.writerows(data)
-
-save_csv(stocks,"it1_stocks.csv")
+"""
+    8. 종가 데이터를 기준으로 각 종목별 평균가와, 날짜별 평균가를 구하시오. 
+       또한, 각 종목에서 자기 평균을 뺀 배열을 구하시오.
+       
+       [힌트]
+       - 종목별 평균가 : (종목 수,) 배열 
+       
+       - 날짜별 평균가 : (날짜 수,) 배열
+       
+       - 각 종목에서 자기 평균을 뺀 배열 : (종목 수, 날짜 수) 배열 
+         결과의 종목별 평균은 0 이 되어야 한다.
+"""
