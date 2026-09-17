@@ -3,32 +3,48 @@
 """
 
 # =========== 이곳에 필요한 모듈 import 한 후 실행 ===========
+import numpy as np
 
+from load_utile import load_one_stock, load_dates
+from load_utile import load_matrix
 """
     1. 다음 리스트 [1, 2, 3, 4, 5]를 ndarray로 변환하고, 배열의 차원(ndim)과 형태(shape)을 출력하시오.
 """
-
+list1 = [1,2,3,4,5]
+arr = np.array(list1)
+print(f"배열의 차원 : {arr.ndim} 형태 : {arr.shape}")
 
 """
     2. np.arange()를 이용해 0부터 20까지의 짝수로 이루어진 배열을 생성하시오.
 """
+arr = np.arange(0,21,2)
+print(arr)
 
 
 """
     3. 다음 제시된 배열에서, 3 이상인 값만 추출하는 불리언 인덱싱 코드를 작성하시오.
 """
+list3 = [1,3,5,2,8,3]
+arr = np.array(list3)
+result = arr[arr>= 3]
+print(result)
 
 
 """
     4. 다음 제시된 리스트를 배열로 변환한 후, 두 번째 행만 슬라이싱하여 출력하시오.
 """
 list4 = [[10, 20, 30], [40, 50, 60], [70, 80, 90]]
+arr = np.array(list4)
+print(arr[1])
 
 
 """
     5. 다음 제시된 리스트를 배열로 변환한 후, 모든 홀수에만 10을 더하는 벡터화 연산을 수행하시오.
 """
 list5 = [1, 2, 3, 4, 5]
+arr = np.array(list5)
+arr[arr % 2 == 1] += 10
+print(arr)
 
 """
     6. 다음 제시된 실수 리스트를 배열로 변환한 후, 반올림한 정수형 배열로 변환하시오.
@@ -40,6 +56,9 @@ list5 = [1, 2, 3, 4, 5]
         [힌트] 반올림을 먼저 하고 타입을 바꾼다. 순서가 중요하다.
 """
 list6 = [52000.9, 51999.2, -3.7, 52000.5]
+arr = np.array(list6)
+result = np.round(arr).astype(int)
+print(result)
 
 # =========== 아래 문제들은 실습용 데이터(prices.csv, load_utils.py)를 활용하여 풀이해보세요. =========== 
 """
@@ -52,6 +71,10 @@ list6 = [52000.9, 51999.2, -3.7, 52000.5]
         [힌트] max 는 '값', argmax 는 '그 값이 있는 위치' 다.
               위치를 얻으면 길이가 같은 다른 배열에서 같은 자리를 꺼낼 수 있다.
 """
+prices = load_one_stock(0) # 첫 종목의 종가 750개
+dates = load_dates()
+print(f"최고가 : {prices.max()} 날짜 : {dates[prices.argmax()]}")
+print(f"최저가 : {prices.min()} 날짜 {dates[prices.argmin()]}")
 
 """
     8. 종가 데이터를 기준으로 각 종목별 평균가와, 날짜별 평균가를 구하시오. 
@@ -65,3 +88,11 @@ list6 = [52000.9, 51999.2, -3.7, 52000.5]
        - 각 종목에서 자기 평균을 뺀 배열 : (종목 수, 날짜 수) 배열 
          결과의 종목별 평균은 0 이 되어야 한다.
 """
+matrix = load_matrix()   # (120,750) 행 : 종목 120개 / 열: 날짜 750개
+print(np.isnan(matrix).sum())  # 0
+print(f"종목별 평균 : {matrix.mean(axis = 1)}")
+print(f"날짜별 평균 : {matrix.mean(axis = 0)}")
+means = matrix.mean(axis = 1, keepdims = True)
+result = matrix - means
+print(np.allclose(result.mean(axis = 1), 0))
+
