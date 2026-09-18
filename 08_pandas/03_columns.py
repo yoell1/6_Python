@@ -3,7 +3,7 @@
 """
 import pandas as pd
 
-from utils.loder import load_csv
+from utils.loader import load_csv
 
 pd.set_option('display.width', 130)    # 출력 창 길이 설정
 

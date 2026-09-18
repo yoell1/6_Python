@@ -3,7 +3,7 @@
 """
 import pandas as pd
 
-from utils.loder import load_csv
+from utils.loader import load_csv
 
 df = load_csv()
 print(df.head())

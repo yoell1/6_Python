@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 Claude outputs/
 __pycache__
+*.pkl
+_sample*
