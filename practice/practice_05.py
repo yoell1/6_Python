@@ -127,3 +127,4 @@ print(f"EU : {df.groupby('Genre')['EU_Sales'].sum().idxmax()}")
 print(f"JP : {df.groupby('Genre')['JP_Sales'].sum().idxmax()}")
 
 print('-' * 60)
+
