@@ -109,6 +109,11 @@ print('-' * 60)
 #   [hint] groupby(['Publisher', 'Genre']).size().reset_index()
 # =====================================================================
 print('----- 8번 답 -----')
+# reset_index() 로 평범한 표로 만든 뒤 처리
+cnt = df.groupby(['Publisher', 'Genre']).size().reset_index(name='count')
+top = cnt.sort_values('count', ascending=False).drop_duplicates('Publisher')
+print(top)
+
 # 기준열 두 개 -> 인덱스가 두 겹(MultiIndex)이 됨
 #   level=0 : 바깥쪽(Publisher) / level=1 : 안쪽(Genre)
 s = df.groupby(['Publisher', 'Genre']).size()
