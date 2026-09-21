@@ -15,7 +15,7 @@ _DEFAULT_FONT = {
 }
 
 # 그 외의 폰트들. (리눅스, 도커 등등)
-_FALLBACK = ["NaumGothic","Noto Sans CJK KR", "Noto Sans SJK JP","IPAGothic"]
+_FALLBACK = ["NanumGothic", "Noto Sans CJK KR", "Noto Sans CJK JP", "IPAGothic"]
 
 def find_korean_font():
     """
