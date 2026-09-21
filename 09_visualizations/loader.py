@@ -3,7 +3,7 @@
 """
 import pandas as pd
 
-from confing import ENCODING , path
+from config import ENCODING , path
 
 def load_prices():
     """ prices.csv 파일을 읽어서 DF 반환
