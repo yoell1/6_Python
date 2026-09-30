@@ -92,6 +92,6 @@ t4= time.perf_counter()-start
 results.append(("4. to_sql (multi)",t4,count_rows()))
 
 print('='*60)
-for name,t, n in results:
-    print(f"{name:<20} {t*1000:>8.0}ms {n:>8,}")
+for name, t, n in results:
+    print(f"{name:<20} {t*1000:>8.0f}ms {n:>8,}")
 
