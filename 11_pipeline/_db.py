@@ -20,7 +20,7 @@ USER = os.getenv("DB_USER")
 PASSWORD = os.getenv("DB_PASSWORD")
 KHLAB_BASE = os.getenv("KHLAB_BASE","https://kh-lab.rockua.ai.kr")
 
-DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)))
+DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 ENCODING = "utf-8-sig"
 KHLAB_DATASETS = f"{KHLAB_BASE}/datasets"
 

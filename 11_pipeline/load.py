@@ -112,7 +112,7 @@ def to_db(df, logger, chunk=CHUNK_SIZE):
     t = time.perf_counter() - start
 
     logger.info(f"  적재 완료 - 신규: {inserted}건, 갱신: {updated}건 ({t})")
-    return inserted, updated, time.perf_counter() -start
+    return inserted, updated, t
 
 def verify(df, logger):
     """
