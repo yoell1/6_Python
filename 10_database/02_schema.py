@@ -123,8 +123,8 @@ CLEAN_DDL = """
         low    NUMBER(20),
         close  NUMBER(20),
         volume NUMBER(20),
-        change NUMBER(20),
-        "changeRate" NUMBER(6, 2),    
+        "change" NUMBER(20),
+        "changeRate" NUMBER(6, 2),
         -- 수집 시간이나 출처 등 따로 필요한 정보는 자유롭게 추가
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         CONSTRAINT uk_code_date UNIQUE (code,"date")
@@ -150,4 +150,3 @@ with conn.cursor() as cur:
 conn.close()
 
 print("**** 테이블 정리 완료 ****")
-

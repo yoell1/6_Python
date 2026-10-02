@@ -4,6 +4,12 @@ __pycache__/
 Claude outputs/
 __pycache__
 *.pkl
+
 _sample*
 outputs
+
+# 환경 변수 파일
 .env
+
+# 로그파일
+logs
