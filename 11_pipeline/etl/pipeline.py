@@ -8,12 +8,12 @@
         (수집)     (정제/검증)      (적재)  (최종 검증,확인)
 """
 import time
-import extract
-import transform
-import load
+from .import extract
+from .import transform
+from .import load
 
-from config import SOURCE
-from logger import setup
+from .config import SOURCE
+from .logger import setup
 
 def run(source=SOURCE):
     """ 

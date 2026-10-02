@@ -9,7 +9,7 @@
 import time
 import pandas as pd
 
-from config import connect, CHUNK_SIZE, get_engine
+from .config import connect, CHUNK_SIZE, get_engine
 
 # DB에 저장할 컬럼 순서
 COLS = ["code","date","open","high","low","close","volume","change","changeRate"]

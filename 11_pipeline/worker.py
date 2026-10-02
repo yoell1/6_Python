@@ -1,8 +1,8 @@
 """
     데이터 파이프라인, 재실행 검증
 """
-from _db import connect 
-from pipeline import run
+from etl._db import connect 
+from etl.pipeline import run
 
 # daily_price 테이블 초기화
 conn = connect()

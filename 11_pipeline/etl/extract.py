@@ -8,7 +8,7 @@ import time
 import pandas as pd
 import requests
 
-from config import KHLAB_BASE, MAX_PAGES, PAGE_SIZE, TIMEOUT, DELAY, raw_prices_path, ENCODING
+from .config import KHLAB_BASE, MAX_PAGES, PAGE_SIZE, TIMEOUT, DELAY, raw_prices_path, ENCODING
 
 # HTTP 요청 헤더
 # => 누가 어떤 목적으로 요청하는 지 정보를 담아둠
