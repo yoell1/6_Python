@@ -8,9 +8,7 @@
         (수집)     (정제/검증)      (적재)  (최종 검증,확인)
 """
 import time
-from .import extract
-from .import transform
-from .import load
+from . import extract, transform, load
 
 from .config import SOURCE
 from .logger import setup
@@ -51,7 +49,7 @@ def run(source=SOURCE):
     if failed:
         logger.warning(f"  실패 {len(failed):,}건 {failed}")
 
-    # [2] Transfrom ----
+    # [2] Transform ----
     logger.info("[Transform]")
     t = time.perf_counter() 
 
@@ -87,4 +85,4 @@ def run(source=SOURCE):
     return ok
 
 if __name__ == "__main__":
-    run(SOURCE)
+    run()

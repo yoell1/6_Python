@@ -24,13 +24,13 @@ def clean_prices(records, logger):
         정제 함수. 단계마다 건수를 로그로 기록.
 
         [처리 순서]
-        1. list[dict] -> DaFrame 변환
+        1. list[dict] -> DataFrame 변환
         2. 숫자 타입 정제
         3. 날짜 타입 정제
         4. 종목 코드 정규화 (대문자, 공백 제거, ...)
         5. 중복 제거 (code,date 기준)
         6. 이상치 탐지 -> NaN 처리
-        7. 결측 보간 (interpolate -> ffile -> bfill)
+        7. 결측 보간 (interpolate -> ffill -> bfill)
         8. OHLC 정합성
         9. 소수점 -> 정수 (반올림)
         10. 등락, 등락률 재계산
@@ -166,7 +166,7 @@ def validate(df, logger):
     failed = [n for n, ok in checks if not ok]
 
     for name, ok in checks:
-        logger.info(f"  {'OK  ' if ok else 'Fail'} {name}")
+        logger.info(f"  {'OK  ' if ok else 'FAIL'} {name}")
 
     if failed:    
         raise ValueError(f"검증 실패: {failed}")

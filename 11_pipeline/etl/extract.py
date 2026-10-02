@@ -25,7 +25,7 @@ def from_api(logger, max_pages=MAX_PAGES):
         KH-LAB API 에서 데이터를 수집하여 반환
 
         Return: (rows, failed)
-            rows  : 응답 데이터를 list[dick] 변환
+            rows  : 응답 데이터를 list[dict] 변환
             failed: 응답받지 못한 페이지 번호 목록
     """
     rows, failed = [], []
@@ -80,7 +80,7 @@ def from_csv(logger, path=None):
             failed : 실패 페이지 목록이나 페이지 정보가 없으므로 빈 리스트를 반환.
     """
 
-    # path가 생략되었을 경우(None) 원본 파일 경로(row_prices_path)로 기본 경로 설정
+    # path가 생략되었을 경우(None) 원본 파일 경로(raw_prices_path)로 기본 경로 설정
     path = path or raw_prices_path()
     # 저장된 데이터를 그대로 유지해서 읽어온 후 
     df = pd.read_csv(path, dtype=str, encoding=ENCODING, keep_default_na=False)

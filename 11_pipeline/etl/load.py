@@ -7,9 +7,8 @@
 """
 
 import time
-import pandas as pd
 
-from .config import connect, CHUNK_SIZE, get_engine
+from .config import connect, CHUNK_SIZE
 
 # DB에 저장할 컬럼 순서
 COLS = ["code","date","open","high","low","close","volume","change","changeRate"]
@@ -118,7 +117,7 @@ def verify(df, logger):
     """
         적재 후 검증 결과를 반환
         
-        [검증 항복 - (df,db)]
+        [검증 항목 - (df,db)]
         - 전체 행 수 
         - 종목 코드 수
         - 종가 총합
