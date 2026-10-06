@@ -3,23 +3,23 @@
 """
 import os
 
-BASE_DIR =  os.path.dirname(os.path.abspath(__file__) )
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # ~/12_ml
-DATA_DIR = os.path.join(BASE_DIR,"data")
+DATA_DIR = os.path.join(BASE_DIR, "data")
 # ~/12_ml/data
-MODEL_DIR = os.path.join(BASE_DIR,"models")
-# ~12_ml/models
+MODEL_DIR = os.path.join(BASE_DIR, "models")
+# ~/12_ml/models
 
-ENCODING= "utf-8-sig"
+ENCODING = "utf-8-sig"
 
-BASE_URL ="https://kh-lab.rockua.ai.kr"
+BASE_URL = "https://kh-lab.rockua.ai.kr"
 
 def path(name):
     """ data 폴더 안의 파일 경로 반환 """
-    return os.path.join(DATA_DIR,name)
+    return os.path.join(DATA_DIR, name)
 
 def prices_path():
-    """ 일별 시세 데이터(pices.csv) 파일 경로 또는 URL 반환 """
+    """ 일별 시세 데이터(prices.csv) 파일 경로 또는 URL 반환 """
     local = path("prices.csv")
 
     if os.path.exists(local):
@@ -28,6 +28,5 @@ def prices_path():
 
 def model_path(name="model_bundle.pkl"):
     """ models 폴더 안의 파일 경로 반환 """
-    os.makedirs(MODEL_DIR,exist_ok=True)
-    return os.path.join(MODEL_DIR,name)
-
+    os.makedirs(MODEL_DIR, exist_ok=True)
+    return os.path.join(MODEL_DIR, name)
