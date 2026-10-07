@@ -125,12 +125,12 @@ def build_dataset(shift_features=True):
     return df
 
 def time_split(df, test_size=0.2):
-    """ 시계열 데이터를 학습용, 테스트용으로 분리하여 반환 
+    """ 시계열 데이터를 학습용, 테스트용으로 분리하여 반환
         Args.
             df : 시계열 데이터 프레임 (날짜타입 열을 포함한 df)
-            test_size : 테스트용 데이터 비율 (0.2-> 학습용: 8  테스트용: 2)
-        Return. 
-            분리된_학습용_데이터, 분리된_테스트용_데이터, 분리기준값     
+            test_size : 테스트용 데이터 비율 (0.2 -> 학습용 8 : 테스트용 2)
+        Return.
+            분리된_학습용_데이터, 분리된_테스트용_데이터, 분리기준값
     """
     cutoff = df["date"].quantile(1 - test_size)
 
